@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DIREITO PROCESSUAL COLETIVO</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@400;500;600&display=swap');
+
+  :root {
+    --navy:      #0C1A3A;
+    --navy-mid:  #162447;
+    --navy-soft: #1E305A;
+    --gold:      #B89030;
+    --gold-lt:   #D4AA50;
+    --parch:     #F8F6F0;
+    --white:     #FFFFFF;
+    --g50:       #F5F4F0;
+    --g100:      #EDECEA;
+    --g200:      #E2E0D8;
+    --g400:      #9B9890;
+    --g700:      #3D3C38;
+    --green:     #1A4731;
+    --green-lt:  #E8F2EC;
+    --blue-dk:   #1B3A6B;
+    --blue-lt:   #EBF0FA;
+    --red-dk:    #6B1B1B;
+    --red-lt:    #FAEBEB;
+    --sb:        320px;
+    --shadow:    0 1px 3px rgba(12,26,58,.10), 0 4px 16px rgba(12,26,58,.07);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:'Inter',system-ui,sans-serif;background:var(--parch);color:var(--g700);overflow:hidden}
+
+  /* ── SHELL ── */
+  .shell{display:grid;grid-template-columns:var(--sb) 1fr;height:100vh}
+
+  /* ── SIDEBAR ── */
+  .sidebar{display:flex;flex-direction:column;background:var(--navy);height:100vh;overflow:hidden;border-right:1px solid rgba(255,255,255,.07)}
+
+  .sb-head{padding:18px 16px 14px;background:var(--navy-mid);border-bottom:1px solid rgba(255,255,255,.08);flex-shrink:0}
+  .eyebrow{font-size:9px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold-lt);margin-bottom:5px}
+  .sb-head h1{font-family:'EB Garamond',Georgia,serif;font-size:17px;font-weight:600;color:#fff;line-height:1.25}
+  .sb-head h1 span{color:var(--gold-lt)}
+
+  .search-wrap{position:relative;margin-top:11px}
+  .search-wrap input{width:100%;padding:8px 10px 8px 30px;border-radius:6px;border:1px solid rgba(255,255,255,.13);background:rgba(255,255,255,.07);color:white;font-size:12px;font-family:inherit;outline:none;transition:border-color .2s,background .2s}
+  .search-wrap input::placeholder{color:rgba(255,255,255,.3)}
+  .search-wrap input:focus{border-color:var(--gold-lt);background:rgba(255,255,255,.11)}
+  .s-ico{position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;opacity:.35;pointer-events:none}
+
+  .sb-body{flex:1;overflow-y:auto;padding:8px 0 20px}
+  .sb-body::-webkit-scrollbar{width:3px}
+  .sb-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.1);border-radius:4px}
+
+  .sb-group{margin-bottom:2px}
+  .sb-lbl{padding:10px 16px 4px;font-size:8.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.32);display:flex;align-items:center;gap:6px}
+  .sb-lbl::after{content:'';flex:1;height:1px;background:rgba(255,255,255,.07)}
+
+  .sb-item{display:flex;align-items:flex-start;gap:9px;padding:8px 16px;cursor:pointer;transition:background .13s;border-left:3px solid transparent;user-select:none}
+  .sb-item:hover{background:rgba(255,255,255,.06)}
+  .sb-item.active{background:rgba(255,255,255,.1);border-left-color:var(--gold-lt)}
+  .sb-item.hidden{display:none}
+  .dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+  .d-leg{background:var(--gold-lt)} .d-stf{background:#7EA8E8} .d-stj{background:#E87E7E} .d-prec{background:#7EC49A}
+  .sb-badge{font-size:8.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;opacity:.5;color:white;margin-bottom:2px}
+  .sb-title{font-size:12px;color:rgba(255,255,255,.87);line-height:1.3;font-weight:500}
+
+  .sb-sub-item{display:flex;align-items:center;gap:7px;padding:6px 16px 6px 32px;cursor:pointer;transition:background .13s;border-left:3px solid transparent;user-select:none}
+  .sb-sub-item:hover{background:rgba(255,255,255,.05)}
+  .sb-sub-item.active{background:rgba(255,255,255,.09);border-left-color:var(--gold-lt)}
+  .sb-sub-item.hidden{display:none}
+  .sb-sub-lbl{font-size:11px;color:rgba(255,255,255,.58);line-height:1.3}
+  .chev{opacity:.28;flex-shrink:0}
+
+  /* ── DETAIL PANEL ── */
+  .detail{display:flex;flex-direction:column;height:100vh;background:var(--g50);overflow:hidden}
+
+  /* toolbar */
+  .dt-bar{display:flex;align-items:center;gap:10px;padding:10px 20px;background:var(--white);border-bottom:1px solid var(--g200);flex-shrink:0;min-height:46px}
+  .dt-breadcrumb{flex:1;font-size:11px;color:var(--g400);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .dt-breadcrumb strong{color:var(--navy);font-weight:600}
+
+  /* content area */
+  .dt-body{flex:1;overflow-y:auto;padding:32px 40px 48px}
+  .dt-body::-webkit-scrollbar{width:5px}
+  .dt-body::-webkit-scrollbar-thumb{background:var(--g200);border-radius:4px}
+
+  /* placeholder */
+  .placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:14px;color:var(--g400);text-align:center;padding:40px}
+  .ph-icon{font-size:52px;opacity:.2}
+  .ph-text{font-size:15px;font-weight:500}
+  .ph-sub{font-size:12.5px;opacity:.75;max-width:320px;line-height:1.6}
+
+  /* detail card */
+  .detail-card{display:none;max-width:680px}
+  .detail-card.show{display:block}
+
+  .dc-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;letter-spacing:.09em;text-transform:uppercase;padding:3px 10px;border-radius:5px;margin-bottom:12px}
+  .dc-badge.leg {background:var(--g100);color:var(--g700)}
+  .dc-badge.stf {background:var(--blue-lt);color:var(--blue-dk)}
+  .dc-badge.stj {background:var(--red-lt);color:var(--red-dk)}
+  .dc-badge.prec{background:var(--green-lt);color:var(--green)}
+
+  .dc-title{font-family:'EB Garamond',Georgia,serif;font-size:26px;font-weight:600;color:var(--navy);line-height:1.2;margin-bottom:20px}
+
+  .dc-divider{height:2px;background:var(--g200);border-radius:2px;margin:20px 0}
+
+  /* enunciado / tese */
+  .dc-enunciado{font-family:'EB Garamond',Georgia,serif;font-size:18px;font-style:italic;color:var(--navy);line-height:1.55;padding:18px 20px;background:var(--white);border-left:4px solid var(--gold);border-radius:0 8px 8px 0;box-shadow:var(--shadow);margin-bottom:20px}
+
+  /* meta row */
+  .dc-meta{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:18px}
+  .meta-chip{font-size:11px;padding:3px 9px;border-radius:5px;background:var(--white);border:1px solid var(--g200);color:var(--g700)}
+
+  /* dispositivos */
+  .dc-section-label{font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g400);margin-bottom:10px}
+  .dc-items{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:20px}
+  .dc-items li{display:flex;gap:10px;font-size:13px;line-height:1.5;padding:9px 12px;background:var(--white);border-radius:7px;border:1px solid var(--g200)}
+  .dc-items li .disp-num{font-weight:600;color:var(--navy);flex-shrink:0;min-width:80px;font-size:12px}
+  .dc-items li .disp-desc{color:var(--g700)}
+
+  /* notice box */
+  .dc-notice{display:flex;gap:10px;padding:12px 14px;background:#FEF9EC;border:1px solid #ECD98A;border-radius:8px;margin-bottom:20px;font-size:12.5px;color:#6B5800;line-height:1.5}
+  .dc-notice.red{background:#FEF0F0;border-color:#F5C2C2;color:#7A1A1A}
+
+  /* links */
+  .dc-links{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}
+  .dc-link-btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:8px;font-size:13px;font-weight:600;font-family:inherit;cursor:pointer;border:none;text-decoration:none;transition:background .15s,transform .1s;line-height:1}
+  .dc-link-btn:active{transform:scale(.97)}
+  .btn-primary{background:var(--navy);color:white}
+  .btn-primary:hover{background:var(--navy-soft)}
+  .btn-secondary{background:var(--white);color:var(--navy);border:1.5px solid var(--g200)}
+  .btn-secondary:hover{background:var(--g50);border-color:var(--g400)}
+  .btn-green{background:var(--green);color:white}
+  .btn-green:hover{background:#124028}
+
+  /* responsive (basic) */
+  @media(max-width:720px){
+    .shell{grid-template-columns:1fr}
+    .detail{display:none}
+  }
+</style>
+</head>
+<body>
+<div class="shell">
+
+<!-- ══════════ SIDEBAR ══════════ -->
+<aside class="sidebar">
+  <div class="sb-head">
+    <div class="eyebrow">Referências Legais Oficiais</div>
+    <h1>Direito Processual <span>Coletivo</span></h1>
+    <div class="search-wrap">
+      <svg class="s-ico" viewBox="0 0 16 16" fill="none">
+        <circle cx="6.5" cy="6.5" r="5" stroke="white" stroke-width="1.5"/>
+        <path d="M10.5 10.5L14 14" stroke="white" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+      <input type="text" id="searchInput" placeholder="Buscar…" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="sb-body" id="sbBody">
+
+    <!-- LEGISLAÇÃO -->
+    <div class="sb-group" data-group="leg">
+      <div class="sb-lbl">Legislação</div>
+      <div class="sb-item" data-id="cf88"><span class="dot d-leg"></span><div><div class="sb-badge">CF / 88</div><div class="sb-title">Constituição Federal de 1988</div></div></div>
+      <div class="sb-item" data-id="l12016"><span class="dot d-leg"></span><div><div class="sb-badge">Lei nº 12.016/2009</div><div class="sb-title">Lei do Mandado de Segurança</div></div></div>
+      <div class="sb-item" data-id="l7347"><span class="dot d-leg"></span><div><div class="sb-badge">Lei nº 7.347/1985</div><div class="sb-title">Lei da Ação Civil Pública</div></div></div>
+      <div class="sb-item" data-id="l8078"><span class="dot d-leg"></span><div><div class="sb-badge">Lei nº 8.078/1990</div><div class="sb-title">Código de Defesa do Consumidor</div></div></div>
+      <div class="sb-item" data-id="l13105"><span class="dot d-leg"></span><div><div class="sb-badge">Lei nº 13.105/2015</div><div class="sb-title">Código de Processo Civil</div></div></div>
+      <div class="sb-item" data-id="l5172"><span class="dot d-leg"></span><div><div class="sb-badge">Lei nº 5.172/1966</div><div class="sb-title">Código Tributário Nacional</div></div></div>
+    </div>
+
+    <!-- SÚMULAS STF -->
+    <div class="sb-group" data-group="stf">
+      <div class="sb-lbl">Súmulas do STF</div>
+      <div class="sb-item" data-id="s101"><span class="dot d-stf"></span><div><div class="sb-badge">Súmula 101 · STF</div><div class="sb-title">MS não substitui ação popular</div></div></div>
+      <div class="sb-item" data-id="s266"><span class="dot d-stf"></span><div><div class="sb-badge">Súmula 266 · STF</div><div class="sb-title">Não cabe MS contra lei em tese</div></div></div>
+      <div class="sb-item" data-id="s268"><span class="dot d-stf"></span><div><div class="sb-badge">Súmula 268 · STF</div><div class="sb-title">Não cabe MS após trânsito em julgado</div></div></div>
+      <div class="sb-item" data-id="s510"><span class="dot d-stf"></span><div><div class="sb-badge">Súmula 510 · STF</div><div class="sb-title">MS contra ato praticado por delegação</div></div></div>
+      <div class="sb-item" data-id="s512"><span class="dot d-stf"></span><div><div class="sb-badge">Súmula 512 · STF</div><div class="sb-title">Sem honorários no MS</div></div></div>
+      <div class="sb-item" data-id="s625"><span class="dot d-stf"></span><div><div class="sb-badge">Súmula 625 · STF</div><div class="sb-title">Controvérsia jurídica não impede liminar</div></div></div>
+      <div class="sb-item" data-id="s629"><span class="dot d-stf"></span><div><div class="sb-badge">Súmula 629 · STF</div><div class="sb-title">MSC independe de autorização dos associados</div></div></div>
+      <div class="sb-item" data-id="s630"><span class="dot d-stf"></span><div><div class="sb-badge">Súmula 630 · STF</div><div class="sb-title">Legitimação mesmo para parte da categoria</div></div></div>
+      <div class="sb-item" data-id="s632"><span class="dot d-stf"></span><div><div class="sb-badge">Súmula 632 · STF</div><div class="sb-title">Prazo decadencial do MS é constitucional</div></div></div>
+    </div>
+
+    <!-- SÚMULA STJ -->
+    <div class="sb-group" data-group="stj">
+      <div class="sb-lbl">Súmula do STJ</div>
+      <div class="sb-item" data-id="s628stj"><span class="dot d-stj"></span><div><div class="sb-badge">Súmula 628 · STJ</div><div class="sb-title">Teoria da Encampação — requisitos</div></div></div>
+    </div>
+
+    <!-- PRECEDENTES -->
+    <div class="sb-group" data-group="prec">
+      <div class="sb-lbl">Precedentes Vinculantes</div>
+      <div class="sb-item" data-id="adi4296"><span class="dot d-prec"></span><div><div class="sb-badge">ADI 4.296/DF · STF · 2021</div><div class="sb-title">Inconstitucionalidade do art. 7º §2º e 22 §2º da LMS</div></div></div>
+      <div class="sb-item" data-id="t1075"><span class="dot d-prec"></span><div><div class="sb-badge">Tema 1.075 · STF · 2021</div><div class="sb-title">Inconstitucionalidade do art. 16 da LACP</div></div></div>
+    </div>
+
+  </div>
+</aside>
+
+<!-- ══════════ DETAIL PANEL ══════════ -->
+<section class="detail">
+  <div class="dt-bar">
+    <div class="dt-breadcrumb" id="dtBreadcrumb">Selecione um item na lista</div>
+  </div>
+
+  <div class="dt-body" id="dtBody">
+    <div class="placeholder" id="placeholder">
+      <div class="ph-icon">⚖️</div>
+      <div class="ph-text">Nenhum item selecionado</div>
+      <div class="ph-sub">Clique em qualquer item da lista à esquerda para ver seus detalhes e acessar a fonte oficial.</div>
+    </div>
+    <div class="detail-card" id="detailCard"></div>
+  </div>
+</section>
+
+</div><!-- /shell -->
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────
+const DATA = {
+  cf88: {
+    badge:'leg', badgeLabel:'CF / 88',
+    title:'Constituição Federal de 1988',
+    enunciado: null,
+    dispositivos:[
+      {num:'Art. 5º, XXXV', desc:'A lei não excluirá da apreciação do Poder Judiciário lesão ou ameaça a direito.'},
+      {num:'Art. 5º, LXIX', desc:'Conceder-se-á mandado de segurança para proteger direito líquido e certo, não amparado por habeas corpus ou habeas data, quando o responsável pela ilegalidade ou abuso de poder for autoridade pública ou agente de pessoa jurídica no exercício de atribuições do Poder Público.'},
+      {num:'Art. 5º, LXX', desc:'O mandado de segurança coletivo pode ser impetrado por: a) partido político com representação no Congresso Nacional; b) organização sindical, entidade de classe ou associação legalmente constituída e em funcionamento há pelo menos um ano, em defesa dos interesses de seus membros ou associados.'},
+      {num:'Art. 5º, LXXIII', desc:'Qualquer cidadão é parte legítima para propor ação popular que vise a anular ato lesivo ao patrimônio público.'},
+      {num:'Art. 17, caput', desc:'É livre a criação, fusão, incorporação e extinção de partidos políticos, resguardados a soberania nacional, o regime democrático, o pluripartidarismo e os direitos fundamentais da pessoa humana.'},
+      {num:'Art. 103, VIII', desc:'Podem propor a ação direta de inconstitucionalidade: partido político com representação no Congresso Nacional.'},
+      {num:'Art. 127, caput', desc:'O Ministério Público é instituição permanente, essencial à função jurisdicional do Estado, incumbindo-lhe a defesa da ordem jurídica, do regime democrático e dos interesses sociais e individuais indisponíveis.'},
+    ],
+    links:[{label:'Texto integral — Planalto', url:'http://www.planalto.gov.br/ccivil_03/constituicao/constituicao.htm', style:'btn-primary'}]
+  },
+  l12016: {
+    badge:'leg', badgeLabel:'Lei nº 12.016/2009',
+    title:'Lei do Mandado de Segurança',
+    notice:{type:'red', text:'Atenção: os arts. 7º, §2º e 22, §2º foram declarados inconstitucionais pelo STF na ADI 4.296/DF (j. 09/06/2021).'},
+    dispositivos:[
+      {num:'Art. 1º, §1º', desc:'Equiparam-se às autoridades: representantes de partidos políticos, administradores de autarquias, dirigentes de pessoas jurídicas ou pessoas naturais no exercício de atribuições do Poder Público.'},
+      {num:'Art. 5º', desc:'Não se concederá MS quando: (I) ato do qual caiba recurso administrativo com efeito suspensivo; (II) decisão judicial da qual caiba recurso com efeito suspensivo; (III) decisão judicial transitada em julgado.'},
+      {num:'Art. 6º, §1º', desc:'Se o documento necessário à prova se achar em repartição pública ou em poder de autoridade que se recuse a fornecê-lo, o juiz ordenará sua exibição no prazo de 10 dias.'},
+      {num:'Art. 7º, I-III e §2º', desc:'Ao despachar a inicial, o juiz notificará o coator, dará ciência ao órgão de representação judicial e poderá suspender o ato impugnado. O §2º, que vedava certas liminares, foi declarado inconstitucional (ADI 4.296).'},
+      {num:'Art. 10, §2º', desc:'O ingresso de litisconsorte ativo não será admitido após o despacho da petição inicial.'},
+      {num:'Art. 12, caput', desc:'Findo o prazo de notificação ao coator, o juiz ouvirá o MP no prazo improrrogável de 10 dias.'},
+      {num:'Art. 21, caput e par. único', desc:'O MSC pode ser impetrado por partido político ou organização sindical/entidade de classe/associação com pelo menos 1 ano de funcionamento, para a defesa de direitos coletivos ou individuais homogêneos.'},
+      {num:'Art. 22, §1º', desc:'O MSC não induz litispendência para as ações individuais, mas os efeitos da coisa julgada não beneficiarão o impetrante individual se este não requerer a suspensão de seu processo em 30 dias.'},
+      {num:'Art. 23', desc:'O direito de requerer MS extingue-se decorridos 120 dias contados da ciência do ato impugnado.'},
+      {num:'Art. 25', desc:'Não cabem embargos infringentes nem condenação em honorários advocatícios no processo de mandado de segurança.'},
+    ],
+    links:[{label:'Texto integral — Planalto', url:'http://www.planalto.gov.br/ccivil_03/_ato2007-2010/2009/lei/l12016.htm', style:'btn-primary'}]
+  },
+  l7347: {
+    badge:'leg', badgeLabel:'Lei nº 7.347/1985',
+    title:'Lei da Ação Civil Pública (LACP)',
+    notice:{type:'red', text:'Atenção: o art. 16 (limitação territorial da coisa julgada) foi declarado inconstitucional pelo STF no Tema 1.075 / RE 1.101.937 (j. 08/04/2021), sendo repristinada a redação original.'},
+    dispositivos:[
+      {num:'Art. 5º, I e V', desc:'Têm legitimidade para a ação principal e cautelar: o MP; a associação constituída há pelo menos 1 ano cujas finalidades incluam a proteção ao patrimônio público, meio ambiente, consumidor, ordem econômica ou direitos de grupos étnicos.'},
+      {num:'Art. 5º, §4º', desc:'O requisito da pré-constituição poderá ser dispensado pelo juiz quando houver manifesto interesse social evidenciado pela dimensão ou característica do dano, ou pela relevância do bem jurídico a ser protegido.'},
+      {num:'Art. 16', desc:'A sentença civil fará coisa julgada erga omnes — a limitação territorial foi declarada inconstitucional (Tema 1.075/STF), sendo repristinada a redação original sem tal restrição.'},
+    ],
+    links:[{label:'Texto consolidado — Planalto', url:'http://www.planalto.gov.br/ccivil_03/leis/l7347Compilada.htm', style:'btn-primary'}]
+  },
+  l8078: {
+    badge:'leg', badgeLabel:'Lei nº 8.078/1990',
+    title:'Código de Defesa do Consumidor (CDC)',
+    dispositivos:[
+      {num:'Art. 81, par. único', desc:'A defesa coletiva será exercida quando se tratar de: (I) direitos difusos — transindividuais, de natureza indivisível, titulares indeterminados ligados por circunstâncias de fato; (II) direitos coletivos — transindividuais, indivisíveis, de grupo ligado entre si ou com a parte contrária por relação jurídica base; (III) direitos individuais homogêneos — decorrentes de origem comum.'},
+    ],
+    links:[{label:'Texto integral — Planalto', url:'http://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm', style:'btn-primary'}]
+  },
+  l13105: {
+    badge:'leg', badgeLabel:'Lei nº 13.105/2015',
+    title:'Código de Processo Civil',
+    dispositivos:[
+      {num:'Art. 18', desc:'Ninguém poderá pleitear direito alheio em nome próprio, salvo quando autorizado pelo ordenamento jurídico. Havendo substituição processual, o substituído poderá intervir como assistente litisconsorcial.'},
+    ],
+    links:[{label:'Texto integral — Planalto', url:'http://www.planalto.gov.br/ccivil_03/_ato2015-2018/2015/lei/l13105.htm', style:'btn-primary'}]
+  },
+  l5172: {
+    badge:'leg', badgeLabel:'Lei nº 5.172/1966',
+    title:'Código Tributário Nacional (CTN)',
+    dispositivos:[
+      {num:'Art. 198, caput', desc:'Sem prejuízo do disposto na legislação criminal, é vedada a divulgação, por parte da Fazenda Pública ou de seus servidores, de informação obtida em razão do ofício sobre a situação econômica ou financeira do sujeito passivo ou de terceiros e sobre a natureza e o estado de seus negócios ou atividades.'},
+    ],
+    links:[{label:'Texto integral — Planalto', url:'http://www.planalto.gov.br/ccivil_03/leis/l5172compilado.htm', style:'btn-primary'}]
+  },
+
+  s101:  { badge:'stf', badgeLabel:'Súmula 101 · STF', title:'MS não substitui ação popular',
+    enunciado:'O mandado de segurança não substitui a ação popular.',
+    meta:['Aprovada em 13/12/1963'],
+    links:[{label:'Portal STF', url:'https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=30&sumula=1966', style:'btn-primary'}]},
+  s266:  { badge:'stf', badgeLabel:'Súmula 266 · STF', title:'Não cabe MS contra lei em tese',
+    enunciado:'Não cabe mandado de segurança contra lei em tese.',
+    desc:'O enunciado abrange não apenas lei em sentido formal, mas qualquer ato normativo de caráter geral e abstrato (atos infralegais com densa abstração normativa).',
+    links:[{label:'Portal STF', url:'https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=30&sumula=2459', style:'btn-primary'}]},
+  s268:  { badge:'stf', badgeLabel:'Súmula 268 · STF', title:'Não cabe MS após trânsito em julgado',
+    enunciado:'Não cabe mandado de segurança contra decisão judicial com trânsito em julgado.',
+    desc:'Positivado também no art. 5º, III da Lei 12.016/2009. O MS não constitui sucedâneo de ação rescisória.',
+    links:[{label:'Portal STF', url:'https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=30&sumula=2466', style:'btn-primary'}]},
+  s510:  { badge:'stf', badgeLabel:'Súmula 510 · STF', title:'MS contra ato praticado por delegação',
+    enunciado:'Praticado o ato por autoridade, no exercício de competência delegada, contra ela cabe o mandado de segurança ou a medida judicial.',
+    links:[{label:'Portal STF', url:'https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=30&sumula=2671', style:'btn-primary'}]},
+  s512:  { badge:'stf', badgeLabel:'Súmula 512 · STF', title:'Sem honorários advocatícios no MS',
+    enunciado:'Não cabe condenação em honorários de advogado na ação de mandado de segurança.',
+    desc:'Positivado no art. 25 da Lei 12.016/2009. O STF confirmou a constitucionalidade desse artigo na ADI 4.296/DF.',
+    links:[{label:'Portal STF', url:'https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=30&sumula=2685', style:'btn-primary'}]},
+  s625:  { badge:'stf', badgeLabel:'Súmula 625 · STF', title:'Controvérsia jurídica não impede liminar',
+    enunciado:'Controvérsia sobre matéria de direito não impede concessão de mandado de segurança.',
+    desc:'A contrario sensu: controvérsia sobre matéria de fato, quando necessária ao desfecho da causa, constitui empecilho ao deferimento da ordem.',
+    links:[{label:'Portal STF', url:'https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=30&sumula=2817', style:'btn-primary'}]},
+  s629:  { badge:'stf', badgeLabel:'Súmula 629 · STF', title:'MSC independe de autorização dos associados',
+    enunciado:'A impetração de mandado de segurança coletivo por entidade de classe em favor dos associados independe da autorização destes.',
+    desc:'Trata-se de substituição processual (legitimação extraordinária): a entidade atua em nome próprio na defesa de interesse alheio. Distingue-se da representação (art. 5º, XXI da CF), que exigira autorização.',
+    links:[{label:'Portal STF', url:'https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=30&sumula=2826', style:'btn-primary'}]},
+  s630:  { badge:'stf', badgeLabel:'Súmula 630 · STF', title:'Legitimação mesmo para parte da categoria',
+    enunciado:'A entidade de classe tem legitimação para o mandado de segurança ainda quando a pretensão veiculada interesse apenas a uma parte da respectiva categoria.',
+    desc:'Positivado expressamente no art. 21 da Lei 12.016/2009. A entidade não precisa defender a integralidade da categoria — basta que o direito pertença a membros ou associados.',
+    links:[{label:'Portal STF', url:'https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=30&sumula=2828', style:'btn-primary'}]},
+  s632:  { badge:'stf', badgeLabel:'Súmula 632 · STF', title:'Prazo decadencial do MS é constitucional',
+    enunciado:'É constitucional lei que fixa o prazo de decadência para a impetração de mandado de segurança.',
+    desc:'O STF confirmou a constitucionalidade do art. 23 da Lei 12.016/2009 (prazo de 120 dias) na ADI 4.296/DF.',
+    links:[{label:'Portal STF', url:'https://portal.stf.jus.br/jurisprudencia/sumariosumulas.asp?base=30&sumula=2832', style:'btn-primary'}]},
+
+  s628stj: { badge:'stj', badgeLabel:'Súmula 628 · STJ', title:'Teoria da Encampação — requisitos',
+    enunciado:'A teoria da encampação é aplicada no mandado de segurança quando presentes, cumulativamente, os seguintes requisitos: a) existência de vínculo hierárquico entre a autoridade que prestou informações e a que ordenou a prática do ato impugnado; b) manifestação a respeito do mérito nas informações prestadas; e c) ausência de modificação de competência estabelecida na Constituição Federal.',
+    meta:['Aprovada em 12/12/2018', 'DJe 17/12/2018', '1ª Seção'],
+    links:[{label:'SCON — STJ', url:'https://scon.stj.jus.br/SCON/sumstj/doc.jsp?livre=%22628%22.num.&b=SUMU', style:'btn-primary'}]},
+
+  adi4296: { badge:'prec', badgeLabel:'ADI 4.296/DF · STF · 2021',
+    title:'Inconstitucionalidade do art. 7º, §2º e art. 22, §2º da Lei 12.016/2009',
+    enunciado:'É inconstitucional ato normativo que vede ou condicione a concessão de medida liminar na via mandamental. Impedir ou condicionar a concessão de medida liminar caracteriza verdadeiro obstáculo à efetiva prestação jurisdicional e à defesa do direito líquido e certo do impetrante.',
+    meta:['STF, Plenário','Rel. Min. Marco Aurélio','Red. p/ acórdão: Min. Alexandre de Moraes','j. 09/06/2021','Info 1021'],
+    dispositivos:[
+      {num:'Art. 7º, §2º — INCONSTITUCIONAL', desc:'Vedava a concessão de liminar para: compensação de créditos tributários; entrega de mercadorias importadas; reclassificação/equiparação de servidores; concessão de aumento ou extensão de vantagens.'},
+      {num:'Art. 22, §2º — INCONSTITUCIONAL', desc:'Exigia oitiva prévia do representante da pessoa jurídica de direito público (em 72h) como condição para concessão de liminar no MSC — restrição ao poder geral de cautela do magistrado.'},
+      {num:'Arts. 1º §2º, 7º III, 23 e 25 — CONSTITUCIONAIS', desc:'Os demais dispositivos questionados foram declarados constitucionais, incluindo o prazo decadencial de 120 dias (art. 23) e a vedação a honorários (art. 25).'},
+    ],
+    links:[
+      {label:'Acompanhamento processual — STF', url:'https://portal.stf.jus.br/processos/detalhe.asp?incidente=3755382', style:'btn-green'},
+      {label:'Notícia do julgamento — STF', url:'https://portal.stf.jus.br/noticias/verNoticiaDetalhe.asp?idConteudo=467335', style:'btn-secondary'},
+    ]},
+
+  t1075: { badge:'prec', badgeLabel:'Tema 1.075 · RE 1.101.937/SP · STF · 2021',
+    title:'Inconstitucionalidade do art. 16 da LACP — limitação territorial da coisa julgada',
+    enunciado:'I — É inconstitucional a redação do art. 16 da Lei 7.347/1985, alterada pela Lei 9.494/1997, sendo repristinada sua redação original. II — Em se tratando de ação civil pública de efeitos nacionais ou regionais, a competência deve observar o art. 93, II, do CDC. III — Ajuizadas múltiplas ACPs de âmbito nacional ou regional, firma-se a prevenção do juízo que primeiro conheceu de uma delas.',
+    meta:['STF, Plenário','Rel. Min. Alexandre de Moraes','j. 08/04/2021','Repercussão Geral','Info 1012'],
+    desc:'O STF entendeu que restringir os efeitos da sentença aos limites territoriais do órgão prolator contradiz a lógica do CDC, que reforça a ideia de que, na proteção dos direitos coletivos, a coisa julgada abrange todos os potenciais beneficiários.',
+    links:[
+      {label:'Página do Tema 1.075 — STF', url:'https://portal.stf.jus.br/jurisprudenciaRepercussao/tema.asp?num=1075', style:'btn-green'},
+      {label:'Leading case (RE 1.101.937) — STF', url:'https://portal.stf.jus.br/jurisprudenciaRepercussao/verAndamentoProcesso.asp?incidente=5336275&numeroProcesso=1101937&classeProcesso=RE&numeroTema=1075', style:'btn-secondary'},
+    ]},
+};
+
+// ── SEARCH ──
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', () => {
+  const q = searchInput.value.toLowerCase().trim();
+  document.querySelectorAll('.sb-item').forEach(item => {
+    const id = item.dataset.id;
+    const d  = DATA[id];
+    if (!d) return;
+    const txt = [d.title, d.badgeLabel, id].join(' ').toLowerCase();
+    item.classList.toggle('hidden', !!q && !txt.includes(q));
+  });
+  document.querySelectorAll('.sb-group').forEach(g => {
+    const vis = Array.from(g.querySelectorAll('.sb-item')).some(i => !i.classList.contains('hidden'));
+    g.style.display = vis ? '' : 'none';
+  });
+});
+
+// ── RENDER ──
+function arrowSVG() {
+  return `<svg width="13" height="13" viewBox="0 0 12 12" fill="none"><path d="M2 10L10 2M6 2h4v4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+}
+
+function render(id) {
+  const d = DATA[id];
+  if (!d) return;
+
+  // active
+  document.querySelectorAll('.sb-item.active').forEach(e => e.classList.remove('active'));
+  document.querySelector(`.sb-item[data-id="${id}"]`).classList.add('active');
+
+  // breadcrumb
+  document.getElementById('dtBreadcrumb').innerHTML =
+    `<strong>${d.badgeLabel}</strong> &nbsp;·&nbsp; ${d.title}`;
+
+  // build card HTML
+  let html = `<span class="dc-badge ${d.badge}">${d.badgeLabel}</span>`;
+  html += `<div class="dc-title">${d.title}</div>`;
+
+  // notice
+  if (d.notice) {
+    html += `<div class="dc-notice ${d.notice.type === 'red' ? 'red' : ''}">⚠️ &nbsp;${d.notice.text}</div>`;
+  }
+
+  // meta chips
+  if (d.meta && d.meta.length) {
+    html += `<div class="dc-meta">${d.meta.map(m => `<span class="meta-chip">${m}</span>`).join('')}</div>`;
+  }
+
+  html += `<div class="dc-divider"></div>`;
+
+  // enunciado / tese
+  if (d.enunciado) {
+    html += `<div class="dc-enunciado">${d.enunciado}</div>`;
+  }
+
+  // extra description
+  if (d.desc) {
+    html += `<p style="font-size:13px;color:var(--g700);line-height:1.65;margin-bottom:18px">${d.desc}</p>`;
+  }
+
+  // dispositivos
+  if (d.dispositivos && d.dispositivos.length) {
+    const label = d.badge === 'leg' ? 'Dispositivos citados no roteiro' : 'Dispositivos envolvidos';
+    html += `<div class="dc-section-label">${label}</div><ul class="dc-items">`;
+    d.dispositivos.forEach(disp => {
+      html += `<li><span class="disp-num">${disp.num}</span><span class="disp-desc">${disp.desc}</span></li>`;
+    });
+    html += `</ul>`;
+  }
+
+  // links
+  if (d.links && d.links.length) {
+    html += `<div class="dc-section-label" style="margin-top:4px">Fonte oficial</div>`;
+    html += `<div class="dc-links">`;
+    d.links.forEach(lnk => {
+      html += `<a class="dc-link-btn ${lnk.style}" href="${lnk.url}" target="_blank" rel="noopener">${lnk.label} ${arrowSVG()}</a>`;
+    });
+    html += `</div>`;
+  }
+
+  const card = document.getElementById('detailCard');
+  card.innerHTML = html;
+  card.classList.add('show');
+  document.getElementById('placeholder').style.display = 'none';
+  // scroll to top
+  document.getElementById('dtBody').scrollTop = 0;
+}
+
+document.querySelectorAll('.sb-item').forEach(item => {
+  item.addEventListener('click', () => render(item.dataset.id));
+});
+</script>
+</body>
+</html>
