@@ -197,6 +197,9 @@
       <div class="sb-lbl">Precedentes Vinculantes</div>
       <div class="sb-item" data-id="adi4296"><span class="dot d-prec"></span><div><div class="sb-badge">ADI 4.296/DF · STF · 2021</div><div class="sb-title">Inconstitucionalidade do art. 7º §2º e 22 §2º da LMS</div></div></div>
       <div class="sb-item" data-id="t1075"><span class="dot d-prec"></span><div><div class="sb-badge">Tema 1.075 · STF · 2021</div><div class="sb-title">Inconstitucionalidade do art. 16 da LACP</div></div></div>
+      <div class="sb-item" data-id="rms25841"><span class="dot d-prec"></span><div><div class="sb-badge">RMS 25.841 · STF · 2011</div><div class="sb-title">Amicus curiae admitido em MSC</div></div></div>
+      <div class="sb-item" data-id="ms29083"><span class="dot d-prec"></span><div><div class="sb-badge">MS 29.083 · STF · 2017</div><div class="sb-title">Desistência para burlar jurisprudência — inadmitida</div></div></div>
+      <div class="sb-item" data-id="re693456"><span class="dot d-prec"></span><div><div class="sb-badge">RE 693.456 · STF · 2016</div><div class="sb-title">Repercussão geral reconhecida — restrição à desistência</div></div></div>
     </div>
 
   </div>
@@ -245,6 +248,7 @@ const DATA = {
     dispositivos:[
       {num:'Art. 1º, §1º', desc:'Equiparam-se às autoridades: representantes de partidos políticos, administradores de autarquias, dirigentes de pessoas jurídicas ou pessoas naturais no exercício de atribuições do Poder Público.'},
       {num:'Art. 5º', desc:'Não se concederá MS quando: (I) ato do qual caiba recurso administrativo com efeito suspensivo; (II) decisão judicial da qual caiba recurso com efeito suspensivo; (III) decisão judicial transitada em julgado.'},
+      {num:'Art. 6º, caput', desc:'A petição inicial, que deverá preencher os requisitos estabelecidos pela lei processual, será apresentada em 2 (duas) vias com os documentos que instruírem a primeira reproduzidos na segunda e indicará, além da autoridade coatora, a pessoa jurídica que esta integra, à qual se acha vinculada ou da qual exerce atribuições.'},
       {num:'Art. 6º, §1º', desc:'Se o documento necessário à prova se achar em repartição pública ou em poder de autoridade que se recuse a fornecê-lo, o juiz ordenará sua exibição no prazo de 10 dias.'},
       {num:'Art. 7º, I-III e §2º', desc:'Ao despachar a inicial, o juiz notificará o coator, dará ciência ao órgão de representação judicial e poderá suspender o ato impugnado. O §2º, que vedava certas liminares, foi declarado inconstitucional (ADI 4.296).'},
       {num:'Art. 10, §2º', desc:'O ingresso de litisconsorte ativo não será admitido após o despacho da petição inicial.'},
@@ -359,6 +363,27 @@ const DATA = {
       {label:'Página do Tema 1.075 — STF', url:'https://portal.stf.jus.br/jurisprudenciaRepercussao/tema.asp?num=1075', style:'btn-green'},
       {label:'Leading case (RE 1.101.937) — STF', url:'https://portal.stf.jus.br/jurisprudenciaRepercussao/verAndamentoProcesso.asp?incidente=5336275&numeroProcesso=1101937&classeProcesso=RE&numeroTema=1075', style:'btn-secondary'},
     ]},
+
+  rms25841: { badge:'prec', badgeLabel:'RMS 25.841/DF · STF · 2011',
+    title:'Admissão de amicus curiae em mandado de segurança coletivo',
+    enunciado:'O STF admitiu a participação de amicus curiae em mandado de segurança coletivo, com sustentação oral em Plenário, dada a relevância da matéria e a representatividade dos interessados. O caso discutia a incorporação do auxílio-moradia (parcela autônoma de equivalência) aos proventos de juízes classistas aposentados sob a Lei 6.903/1981.',
+    meta:['STF, Plenário','Rel. Min. Gilmar Mendes','j. 07/12/2011','Impetrante: ANAJUCLA'],
+    desc:'Impetrante: Associação Nacional dos Juízes Classistas da Justiça do Trabalho (ANAJUCLA). O precedente é relevante por reconhecer o cabimento da intervenção de amicus curiae na via mandamental coletiva, ampliando o debate em torno de direitos de uma categoria. Nos embargos de declaração posteriores, a relatoria passou ao Min. Marco Aurélio.',
+    links:[{label:'Pesquisar no portal de jurisprudência — STF', url:'https://jurisprudencia.stf.jus.br/pages/search?classeNumeroIncidente=%22RMS%2025841%22', style:'btn-primary'}]},
+
+  ms29083: { badge:'prec', badgeLabel:'MS 29.083 ED-ED-AgR/DF · STF · 2017',
+    title:'Desistência do MS para evitar jurisprudência consolidada — não homologada',
+    enunciado:'A regra geral firmada pelo STF (RE 669.367 RG) permite ao impetrante desistir da ação mandamental a qualquer tempo, mesmo após a sentença, independentemente da concordância do impetrado. Contudo, o STF afasta essa orientação quando demonstrado o mero intuito de se recusar observância à jurisprudência pacífica da Corte. Nessas hipóteses, o pedido de desistência não é homologado.',
+    meta:['STF, 2ª Turma','Rel. Min. Teori Zavascki','Red. p/ acórdão: Min. Dias Toffoli','j. 16/05/2017'],
+    desc:'O precedente é relevante por estabelecer uma exceção à livre desistência no mandado de segurança: a desistência não pode ser usada como expediente para que o impetrante se furte à formação de coisa julgada desfavorável já antecipável pela jurisprudência consolidada do Tribunal. Prestigia-se a boa-fé processual e a força da jurisprudência.',
+    links:[{label:'Pesquisar no portal de jurisprudência — STF', url:'https://jurisprudencia.stf.jus.br/pages/search?classeNumeroIncidente=%22MS%2029083%22', style:'btn-primary'}]},
+
+  re693456: { badge:'prec', badgeLabel:'RE 693.456/RJ · STF · 2016',
+    title:'Repercussão geral reconhecida impede a desistência do MS',
+    enunciado:'Resolvendo questão de ordem, o STF firmou a tese de que, uma vez reconhecida a repercussão geral da questão constitucional, não se admite a desistência de qualquer recurso ou mesmo da própria ação (inclusive do mandado de segurança). A decisão foi tomada por maioria, vencido o Min. Marco Aurélio.',
+    meta:['STF, Plenário','Rel. Min. Dias Toffoli','j. 27/10/2016','Tema 531 · Repercussão Geral'],
+    desc:'A restrição preserva o interesse público na definição da tese de repercussão geral: reconhecida a transcendência da matéria, a desistência não pode esvaziar o julgamento que servirá de paradigma a inúmeros casos. No mérito (Tema 531), fixou-se que a Administração deve descontar os dias de paralisação por greve do servidor, salvo se a greve decorrer de conduta ilícita do Poder Público.',
+    links:[{label:'Tema 531 / leading case — STF', url:'https://portal.stf.jus.br/jurisprudenciaRepercussao/verAndamentoProcesso.asp?incidente=4255687&numeroProcesso=693456&classeProcesso=RE&numeroTema=531', style:'btn-primary'}]},
 };
 
 // ── SEARCH ──
